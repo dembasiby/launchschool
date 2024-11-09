@@ -1,11 +1,23 @@
 const readline = require("readline-sync");
+
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
 
 function prompt(message) {
-  console.log(`==> ${message}`);
+  console.log(`=> ${message}`);
 }
+
+function joinOr(arr, delimiter = ", ", joiningWord = "or") {
+  if (arr.length <= 1) return arr.join();
+  if (arr.length === 2) return arr.join(` ${joiningWord} `);
+
+  let result = arr.slice(0, -1).join(delimiter);
+  result += `${delimiter}${joiningWord} ${arr.slice(-1)}`;
+
+  return result;
+}
+
 function initializeBoard() {
   let board = {};
 
@@ -50,7 +62,7 @@ function playerChoosesSquare(board) {
   let square;
 
   while (true) {
-    prompt(`Choose a square ${emptySquares.join(", ")}: `);
+    prompt(`Choose a square ${joinOr(emptySquares, ", ")}: `);
     square = readline.question().trim();
     if (emptySquares.includes(square)) break;
     prompt("Please provide a valid square number: ");
