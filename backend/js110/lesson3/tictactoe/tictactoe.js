@@ -118,6 +118,14 @@ function detectWinner(board) {
   return null;
 }
 
+let scores = {
+  playerScore: 0,
+  computerScore: 0,
+  toString() {
+    return `Player score: ${this.playerScore}, Computer score: ${this.computerScore}`;
+  },
+};
+
 while (true) {
   let board = initializeBoard();
 
@@ -134,12 +142,16 @@ while (true) {
   displayBoard(board);
 
   if (someoneWon(board)) {
-    prompt(`${detectWinner(board)} has won!`);
+    let winner = detectWinner(board);
+    prompt(`${winner} has won!`);
+    scores[winner.toLowerCase() + "Score"] += 1;
   } else {
     prompt("It's a tie!");
   }
 
+  prompt(scores);
   prompt("Play again? (y or n): ");
+
   let answer = readline.question().toLowerCase()[0];
   if (answer !== "y") break;
 }
