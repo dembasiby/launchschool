@@ -45,7 +45,7 @@ console.log(solve(["encode","abc","xyzD","ABmD"])); // [1, 3, 1, 3]
 
 ## Data Structure
 
-- use an array of the 26 letters
+- use an string of the 26 letters
 - return an array of numbers.
 
 ## Algorithm
@@ -54,9 +54,9 @@ console.log(solve(["encode","abc","xyzD","ABmD"])); // [1, 3, 1, 3]
 - loop through the input array of word, for each word, `countNumberOfLettersInTheRightAlphabeticOrder` and store that number in a result array,
 - return the result array of numbers
 
-`countNumberOfLettersInTheRightAlphabeticOrder(word)`
+`alphabetSymmetry` helper function with one parameter `word`
 
-- Declare and initialize a constant array with the 26 alphabet letters;
+- Declare and initialize a constant string with the 26 alphabet letters;
 - Declare and initialize a variable `count` to `0`
 - loop through the word letter by letters
   -- for the lowercase value of each letter, check if it is at the same position as in the alphabet array.
@@ -67,11 +67,11 @@ console.log(solve(["encode","abc","xyzD","ABmD"])); // [1, 3, 1, 3]
 
 ```JavaScript
 function solve(arr) {
-  return arr.map(countNumberOfLettersInTheRightAlphabeticOrder);
+  return arr.map(alphabetSymmetry);
 }
 
-function countNumberOfLettersInTheRightAlphabeticOrder(word) {
-  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+function alphabetSymmetry(word) {
+  let alphabet = "abcdefghijklmnopqrstuvwxyz";
   return word
     .split("")
     .filter((letter, idx) => alphabet.indexOf(letter.toLowerCase()) === idx)
