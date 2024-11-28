@@ -1,13 +1,11 @@
 function findFibonacciIndexByLength(bigIntNum) {
   let index = 1n;
-  let len = String(bigIntNum).length;
+  let len = 1;
   let current = 1n;
   let previous = 1n;
 
   while (len < bigIntNum) {
-    let temp = current;
-    current += previous;
-    previous = temp;
+    [current, previous] = [current + previous, current];
     index++;
     len = String(current).length;
   }
