@@ -20,7 +20,7 @@ console.log(fibonacci(4)); // 3
 console.log(fibonacci(5)); // 5
 console.log(fibonacci(12)); // 144
 console.log(fibonacci(20)); // 6765
-console.log(fibonacci(35)); // 6765
-console.log(fibonacci(50)); // 6765
-console.log(fibonacci(100)); // 6765
-console.log(fibonacci(1000)); // 6765
+console.log(fibonacci(35)); // 9227465
+console.log(fibonacci(50)); // 12586269025
+console.log(fibonacci(100)); // 354224848179262000000
+console.log(fibonacci(1000)); // 4.346655768693743e+208
