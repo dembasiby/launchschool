@@ -4,13 +4,13 @@ function fibonacci(num) {
   function helper(num) {
     if (num <= 2) return 1;
     if (arr[num] === -1) {
-      arr[num] = helper(num - 1, arr) + helper(num - 2, arr);
+      arr[num] = helper(num - 1) + helper(num - 2);
     }
 
     return arr[num];
   }
 
-  return helper(num, arr);
+  return helper(num);
 }
 
 console.log(fibonacci(1)); // 1
