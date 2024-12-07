@@ -1,10 +1,13 @@
 const p = console.log;
 
 const mostCommonChar = (str) => {
-  let occurences = str.split("").reduce((acc, char) => {
-    acc[char] = acc[char] + 1 || 1;
-    return acc;
-  }, {});
+  let occurences = str
+    .split("")
+    .map()
+    .reduce((acc, char) => {
+      acc[char] = acc[char] + 1 || 1;
+      return acc;
+    }, {});
 
   return Object.keys(occurences)
     .sort((a, b) => occurences[b] - occurences[a])
