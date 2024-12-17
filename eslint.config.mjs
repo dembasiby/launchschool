@@ -26,12 +26,9 @@ export default [
       noInlineConfig: false, // Allow inline ESLint configuration comments
     },
     settings: {
-      "eslint.node": {
-        globals: ["console"],
-        env: {
-          browser: true, // Enable browser globals
-          node: true, // Enable Node.js globals
-        },
+      env: {
+        browser: true,
+        node: true,
       },
     },
     rules: {
