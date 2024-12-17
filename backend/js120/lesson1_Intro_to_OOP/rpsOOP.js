@@ -2,13 +2,35 @@
 // NOONS: Game Player Move Rule
 // VERBS: choose compare
 //
+const readline = require("readline-sync");
 
-function createPlayer() {
+function createPlayer(playerType) {
   return {
-    // possible state: player's name
-    // possible state: player current move
+    playerType,
+    move: null,
+
+    isHuman() {
+      return this.playerType.toLowerCase() === "human";
+    },
+
     choose() {
-      // not yet implemented
+      let choices = ["rock", "paper", "scissors"];
+
+      if (this.isHuman()) {
+        let choice;
+
+        while (true) {
+          console.log("Please choose rock, paper, or scissors:");
+          choice = readline.question();
+          if (choices.includes(choice)) break;
+          console.log("Sorry, invalid choice.");
+        }
+
+        this.move = choice;
+      } else {
+        let randomIndex = Math.floor(Math.random() * choices.length);
+        this.move = choices[randomIndex];
+      }
     },
   };
 }
@@ -31,19 +53,58 @@ let compare = function (move1, move2) {
   // not yet implemented
 };
 
-function displayWelcomeMessage() {}
-function displayWinner() {}
-function displayGoodbyeMessage() {}
-
 const RPSGame = {
-  human: createPlayer(),
-  computer: createPlayer(),
+  human: createPlayer("human"),
+  computer: createPlayer("computer"),
+
+  displayWelcomeMessage() {
+    console.log("Welcome to Rock, Paper, Scissors!");
+  },
+
+  displayGoodbyeMessage() {
+    console.log("Thanks for playing Rock, Paper, Scissors. Goodbye!");
+  },
+
+  displayWinner() {
+    let humanMove = this.human.move;
+    let computerMove = this.computer.move;
+
+    console.log(`You chose: ${humanMove}`);
+    console.log(`The computer chose: ${computerMove}`);
+
+    if (
+      (humanMove === "rock" && computerMove === "scissors") ||
+      (humanMove === "paper" && computerMove === "rock") ||
+      (humanMove === "scissors" && computerMove === "paper")
+    ) {
+      console.log("You win!");
+    } else if (
+      (computerMove === "rock" && humanMove === "scissors") ||
+      (computerMove === "paper" && humanMove === "rock") ||
+      (computerMove === "scissors" && humanMove === "paper")
+    ) {
+      console.log("Computer wins!");
+    } else {
+      console.log("It's a tie!");
+    }
+  },
+
+  playAgain() {
+    console.log("Would you like to play again? (y/n)");
+    let answer = readline.question();
+    return answer.toLowerCase()[0] === "y";
+  },
 
   play() {
-    displayWelcomeMessage();
-    this.human.choose();
-    this.computer.choose();
-    displayWinner();
-    displayGoodbyeMessage();
+    this.displayWelcomeMessage();
+    while (true) {
+      this.human.choose();
+      this.computer.choose();
+      this.displayWinner();
+      if (!this.playAgain()) break;
+    }
+    this.displayGoodbyeMessage();
   },
 };
+
+RPSGame.play();
