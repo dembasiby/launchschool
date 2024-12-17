@@ -35,24 +35,6 @@ function createPlayer(playerType) {
   };
 }
 
-function createMove() {
-  return {
-    // possible state: type of move (paper, rock, scissors)
-  };
-}
-
-function createRule() {
-  return {
-    // possible state: not clear whether rules need state
-  };
-}
-
-// Since we don't yet know where to put 'compare', let's define
-// it as an ordinary function
-let compare = function (move1, move2) {
-  // not yet implemented
-};
-
 const RPSGame = {
   human: createPlayer("human"),
   computer: createPlayer("computer"),
