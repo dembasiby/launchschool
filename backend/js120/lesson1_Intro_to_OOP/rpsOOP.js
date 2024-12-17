@@ -4,40 +4,49 @@
 //
 const readline = require("readline-sync");
 
-function createPlayer(playerType) {
+function createPlayer() {
   return {
-    playerType,
     move: null,
-
-    isHuman() {
-      return this.playerType.toLowerCase() === "human";
-    },
-
-    choose() {
-      let choices = ["rock", "paper", "scissors"];
-
-      if (this.isHuman()) {
-        let choice;
-
-        while (true) {
-          console.log("Please choose rock, paper, or scissors:");
-          choice = readline.question();
-          if (choices.includes(choice)) break;
-          console.log("Sorry, invalid choice.");
-        }
-
-        this.move = choice;
-      } else {
-        let randomIndex = Math.floor(Math.random() * choices.length);
-        this.move = choices[randomIndex];
-      }
-    },
   };
 }
 
+function createComputer() {
+  let player = createPlayer();
+  let computer = {
+    choose() {
+      let choices = ["rock", "paper", "scissors"];
+      let randomIndex = Math.floor(Math.random() * choices.length);
+      this.move = choices[randomIndex];
+    },
+  };
+
+  return Object.assign(player, computer);
+}
+
+function createHuman() {
+  let player = createPlayer();
+
+  let human = {
+    choose() {
+      let choice;
+
+      while (true) {
+        console.log("Please choose rock, paper, or scissors:");
+        choice = readline.question();
+        if (["rock", "paper", "scissors"].includes(choice)) break;
+        console.log("Sorry, invalid choice.");
+      }
+
+      this.move = choice;
+    },
+  };
+
+  return Object.assign(player, human);
+}
+
 const RPSGame = {
-  human: createPlayer("human"),
-  computer: createPlayer("computer"),
+  human: createHuman(),
+  computer: createComputer(),
 
   displayWelcomeMessage() {
     console.log("Welcome to Rock, Paper, Scissors!");
