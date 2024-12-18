@@ -7,10 +7,15 @@ const readline = require("readline-sync");
 function createPlayer() {
   return {
     move: null,
+    moveHistory: [],
     score: 0,
 
     incrementScore() {
       this.score += 1;
+    },
+
+    updateMoveHistory(move, outcome) {
+      this.moveHistory.push({ move, outcome });
     },
 
     resetScore() {
@@ -77,6 +82,12 @@ const RPSGame = {
     );
   },
 
+  updatePlayersInfo(player, opponent) {
+    player.updateMoveHistory(player.move, true);
+    player.incrementScore();
+    opponent.updateMoveHistory(opponent.move, false);
+  },
+
   displayWinner() {
     console.clear();
 
@@ -88,10 +99,10 @@ const RPSGame = {
 
     if (this.winningCombos[humanMove].includes(computerMove)) {
       this.prompt("You win!");
-      this.human.incrementScore();
+      this.updatePlayersInfo(this.human, this.computer);
     } else if (this.winningCombos[computerMove].includes(humanMove)) {
       this.prompt("Computer wins!");
-      this.computer.incrementScore();
+      this.updatePlayersInfo(this.computer, this.human);
     } else {
       this.prompt("It's a tie!");
     }
