@@ -88,6 +88,15 @@ const RPSGame = {
     opponent.updateMoveHistory(opponent.move, false);
   },
 
+  isWinner(playerMove, opponentMove) {
+    return this.winningCombos[playerMove].includes(opponentMove);
+  },
+
+  announceWinner(playerName, player, opponent) {
+    this.updatePlayersInfo(player, opponent);
+    this.prompt(`${playerName} win!`);
+  },
+
   displayWinner() {
     console.clear();
 
@@ -97,12 +106,10 @@ const RPSGame = {
     this.prompt(`You chose: ${humanMove}`);
     this.prompt(`The computer chose: ${computerMove}`);
 
-    if (this.winningCombos[humanMove].includes(computerMove)) {
-      this.prompt("You win!");
-      this.updatePlayersInfo(this.human, this.computer);
-    } else if (this.winningCombos[computerMove].includes(humanMove)) {
-      this.prompt("Computer wins!");
-      this.updatePlayersInfo(this.computer, this.human);
+    if (this.isWinner(humanMove, computerMove)) {
+      this.announceWinner("You", this.human, this.computer);
+    } else if (this.isWinner(computerMove, humanMove)) {
+      this.announceWinner("Computer", this.computer, this.human);
     } else {
       this.prompt("It's a tie!");
     }
