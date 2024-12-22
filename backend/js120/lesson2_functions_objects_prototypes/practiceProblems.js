@@ -1,16 +1,11 @@
 function assignProperty(obj, prop, val) {
-  if (obj.hasOwnProperty(prop)) {
-    obj[prop] = val;
-    return;
-  }
-
-  while (obj && !obj.hasOwnProperty(prop)) {
-    obj = Object.getPrototypeOf(obj);
-
-    if (obj && obj.hasOwnProperty(prop)) {
+  while (obj !== null) {
+    if (obj.hasOwnProperty(prop)) {
       obj[prop] = val;
       return;
     }
+
+    obj = Object.getPrototypeOf(obj);
   }
 }
 
